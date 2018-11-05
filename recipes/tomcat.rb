@@ -84,16 +84,19 @@ end
 #Insert line in /opt/tomcat/conf/tomcat-users.xml
 template '/opt/tomcat/conf/tomcat-users.xml' do
   source 'tomcat-users.xml.erb'
+  notifies :restart,'service[tomcat]', :immediately
 end
 
 #comment out the IP address restriction to allow connections from anywhere, manager
 template '/opt/tomcat/webapps/manager/META-INF/context.xml' do
   source 'context.xml.erb'
+  notifies :restart,'service[tomcat]', :immediately
 end
 
 #comment out the IP address restriction to allow connections from anywhere, host-manager
 template '/opt/tomcat/webapps/host-manager/META-INF/context.xml' do
   source 'context.xml.erb'
+  notifies :restart,'service[tomcat]', :immediately
 end
 
 #add host-manager.xml to /opt/tomcat/conf
@@ -103,6 +106,6 @@ end
 
 #restart tomcat service
 service 'tomcat' do
-  subscribes :create, 'template[/opt/tomcat/webapps/manager/META-INF/context.xml]', :immediately
+#  subscribes :create, 'template[/opt/tomcat/webapps/manager/META-INF/context.xml]', :immediately
   action :nothing
 end
