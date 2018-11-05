@@ -4,7 +4,12 @@
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
-#install open-jdk
+#Install default jre and jdk
+execute 'update' do
+  command 'sudo apt-get update -y'
+end
+
+package 'default-jre'
 package 'default-jdk'
 
 #setup JAVA_HOME
@@ -27,7 +32,7 @@ group 'tomcat' do
 end
 
 #download and install tomcat
-tar_extract 'http://apache.mirrors.ionfish.org/tomcat/tomcat-8/v8.5.33/bin/apache-tomcat-8.5.33.tar.gz' do
+tar_extract 'http://apache.mirrors.ionfish.org/tomcat/tomcat-8/v8.5.34/bin/apache-tomcat-8.5.34.tar.gz' do
   target_dir '/opt/tomcat'
   creates '/opt/tomcat/RUNNING.txt'
   tar_flags [ '-P', '--strip-components 1' ]
@@ -98,6 +103,6 @@ end
 
 #restart tomcat service
 service 'tomcat' do
-  subscribes :run, 'template[/opt/tomcat/webapps/manager/META-INF/context.xml]', :immediately 
+  subscribes :create, 'template[/opt/tomcat/webapps/manager/META-INF/context.xml]', :immediately
   action :nothing
 end

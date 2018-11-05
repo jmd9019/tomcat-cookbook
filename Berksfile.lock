@@ -1,0 +1,13 @@
+DEPENDENCIES
+  tomcat-cookbook
+    path: .
+    metadata: true
+
+GRAPH
+  fileutils (1.2.0)
+  line (2.1.1)
+  tar (2.2.0)
+  tomcat-cookbook (0.1.0)
+    fileutils (~> 1.2.0)
+    line (~> 2.1.1)
+    tar (~> 2.2.0)

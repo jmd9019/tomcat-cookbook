@@ -13,5 +13,13 @@
   "job_dispatch": {
     "version": "v2"
   },
-  "dependencies": []
+  "dependencies": [],
+    "delivery-truck": {
+    "lint": {
+      "enable_cookstyle": true
+    },
+    "publish": {
+      "chef_server": true
+    }
+  }
 }
