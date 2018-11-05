@@ -4,10 +4,14 @@ DEPENDENCIES
     metadata: true
 
 GRAPH
+  delivery-sugar (1.7.1)
+  delivery-truck (2.3.2)
+    delivery-sugar (~> 1.1)
   fileutils (1.2.0)
   line (2.1.1)
   tar (2.2.0)
-  tomcat-cookbook (0.1.0)
+  tomcat-cookbook (0.1.1)
+    delivery-truck (>= 0.0.0)
     fileutils (~> 1.2.0)
     line (~> 2.1.1)
     tar (~> 2.2.0)
