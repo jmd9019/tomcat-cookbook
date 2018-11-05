@@ -9,9 +9,17 @@
       "enable_cookstyle": true
     }
   },
-  "skip_phases": [],
+  "skip_phases": ["lint"],
   "job_dispatch": {
     "version": "v2"
   },
-  "dependencies": []
+  "dependencies": [],
+    "delivery-truck": {
+    "lint": {
+      "enable_cookstyle": true
+    },
+    "publish": {
+      "chef_server": true
+    }
+  }
 }
