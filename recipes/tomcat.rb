@@ -106,6 +106,5 @@ end
 
 #restart tomcat service
 service 'tomcat' do
-#  subscribes :create, 'template[/opt/tomcat/webapps/manager/META-INF/context.xml]', :immediately
-  action :nothing
+ action :nothing
 end
