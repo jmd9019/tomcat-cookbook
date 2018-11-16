@@ -8,14 +8,35 @@
 execute 'update' do
   command 'sudo apt-get update -y'
 end
+#Install oracle java8
+apt_repository 'oracle-java8-installer' do
+  uri 'http://ppa.launchpad.net/webupd8team/java/ubuntu'
+  keyserver "keyserver.ubuntu.com"
+  key 'EEA14886'
+  distribution 'xenial'
+  components ["main"]
+  cache_rebuild true
+  notifies :run,'execute[accept]', :immediately
+end
 
-package 'default-jre'
-package 'default-jdk'
+#Accept java licence
+execute 'accept' do
+  command 'echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections'
+  notifies :run,'execute[seen]', :immediately
+  action :nothing
+end
+
+execute 'seen' do
+  command 'echo debconf shared/accepted-oracle-license-v1-1 seen true | sudo debconf-set-selections'
+  action :nothing
+end
+
+package 'oracle-java8-installer'
 
 #setup JAVA_HOME
 append_if_no_line "set JAVA_HOME" do
   path "/etc/environment"
-  line 'JAVA_HOME=/usr/lib/jvm/default-jdk'
+  line 'JAVA_HOME=/usr/lib/jvm/java-8-oracle'
 end
 
 #create tomcat user
