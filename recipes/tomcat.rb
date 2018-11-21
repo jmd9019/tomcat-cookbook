@@ -4,7 +4,6 @@
 #
 # Copyright:: 2018, The Authors, All Rights Reserved.
 
-#Install default jre and jdk
 execute 'update' do
   command 'sudo apt-get update -y'
 end
@@ -120,6 +119,11 @@ template '/opt/tomcat/webapps/host-manager/META-INF/context.xml' do
   notifies :restart,'service[tomcat]', :immediately
 end
 
+#Get port number for attribute
+template '/opt/tomcat/conf/server.xml' do
+  source 'server.xml.erb'
+  notifies :restart,'service[tomcat]', :immediately
+end
 #add host-manager.xml to /opt/tomcat/conf
 #template '/opt/tomcat/conf/host-manager.xml' do
 #  source 'host-manager.xml.erb'
@@ -127,5 +131,5 @@ end
 
 #restart tomcat service
 service 'tomcat' do
- action :nothing
+ action :start
 end
